@@ -1,0 +1,83 @@
+@(fname: String, sname: String, y2008: Int, y2009: Int, y2010: Int, y2011: Int, y2012: Int)
+
+@main("Here is the result:") {
+  
+    <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load("visualization", "1", {packages: ["corechart"]});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+		
+		        // Create the data table.
+		        var data = new google.visualization.DataTable();
+		        data.addColumn('string', 'Year');
+		        data.addColumn('number', 'Results');
+		        data.addRows([
+		          ['2008', @y2008],
+		          ['2009', @y2009],
+		          ['2010', @y2010],
+		          ['2011', @y2011],
+		          ['2012', @y2012]
+		        ]);
+		
+		        // Set chart options
+		        var options = {'title':'Exam Results',
+		                       'width':600,
+		                       'height':400,
+		                       'legend': {position: 'none'},
+		                       'vAxis': { 
+					              'title': "Percentage", 
+					              'viewWindowMode':'explicit',
+					              'viewWindow':{
+					                'max':100.1,
+					                'min':0
+					              }
+					            },
+		                       'hAxis' : { 'title': "Years"}
+		                       };
+		                       
+		        // Instantiate and draw our chart, passing in some options.
+		        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+		        chart.draw(data, options);
+		      }
+    </script>
+    </head>
+
+    <ul>
+            <li>Hello @fname @sname</li>
+    </ul>
+  
+     @defining((y2008 + y2009 + y2010 + y2011 + y2012)/5) { avgMark =>
+	    <ul>
+            <li>Average Mark: @avgMark </li>
+      	</ul>
+      	@if(avgMark<40) {
+		  <h1 id="failed">Eh eh.. Wipeout!</h1>
+		}else {
+		  @if(avgMark==100){
+		    <h1 id="swot">Get a life, swot!</h1>
+		  }else{
+			  <h1 id="passed">Passed!</h1>
+		  }
+		}
+	 }
+     
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+
+      
+    <p class="buttons">
+        <a href="@routes.Application.index">Back to the form</a>
+    </p>
+
+}

@@ -1,0 +1,52 @@
+@(examResultsForm: Form[(String,String,Int,Int,Int,Int,Int)])
+
+@import helper._
+
+@main(title = "Exam Results Input") {
+
+    <h1>Please enter your exam results</h1>
+
+    @form(action = routes.Application.enterResults, args = 'id -> "examresultsform") {
+
+        @inputText(
+            field = examResultsForm("fname"),
+            args = '_label -> "What's your first name?", 'placeholder -> "Enter Text"
+        )
+        
+        @inputText(
+            field = examResultsForm("sname"),
+            args = '_label -> "What's your surname?", 'placeholder -> "Enter Text"
+        )
+
+        @inputText(
+            field = examResultsForm("y2008"),
+            args = '_label -> "2008", 'size -> 3
+        )
+
+        @inputText(
+            field = examResultsForm("y2009"),
+            args = '_label -> "2009", 'size -> 3
+        )
+        
+        @inputText(
+            field = examResultsForm("y2010"),
+            args = '_label -> "2010", 'size -> 3
+        )
+        
+        @inputText(
+            field = examResultsForm("y2011"),
+            args = '_label -> "2011", 'size -> 3
+        )
+        
+        @inputText(
+            field = examResultsForm("y2012"),
+            args = '_label -> "2012", 'size -> 3
+        )
+
+        <p class="buttons">
+            <input type="submit" id="submit">
+        <p>
+
+    }
+
+}
